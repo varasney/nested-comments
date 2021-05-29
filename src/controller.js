@@ -13,8 +13,8 @@ function USEController() {
 
     const addComment = () => {
         console.log('suhas nano commenting', commenting);
-        if (commenting.length < 5) {
-            alert('Please add atleast 5 characters');
+        if (!commenting) {
+            alert('Please add your comment');
             return;
         }
         let cpyallComments = [...allComments]
