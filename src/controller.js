@@ -3,6 +3,7 @@ import { useState } from 'react';
 function USEController() {
     const [commenting, setCommenting] = useState('')
     const [allComments, setComments] = useState([])
+    const [replyComment, seReplayComment] = useState('')
 
 
     const onChangeComment = (e) => {
@@ -45,6 +46,21 @@ function USEController() {
         setComments(cpy)
     }
 
+    const onReplayText = (e) => {
+        seReplayComment(e.target.value)
+    }
+
+    const addReplay = (index, item) => {
+        item.replay = {
+            comment: replyComment,
+            isLike: false
+        }
+
+        let cpy = [...allComments]
+        cpy[index] = item
+        setComments(cpy)
+    }
+
     return {
         commenting,
         allComments,
@@ -52,7 +68,9 @@ function USEController() {
         addComment,
         onlikeClick,
         onUnlikeClick,
-        onDeleteComment
+        onDeleteComment,
+        onReplayText,
+        addReplay
     };
 }
 

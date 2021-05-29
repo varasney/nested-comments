@@ -12,7 +12,9 @@ function App() {
     addComment,
     onlikeClick,
     onUnlikeClick,
-    onDeleteComment
+    onDeleteComment,
+    onReplayText,
+    addReplay
   } = USEController()
   return (
     <div className="App">
@@ -28,7 +30,9 @@ function App() {
           userCommentesList={allComments}
           onlikeClick={onlikeClick}
           onUnlikeClick={onUnlikeClick}
-          onDeleteComment={onDeleteComment} />
+          onDeleteComment={onDeleteComment}
+          onReplayText={onReplayText}
+          addReplay={addReplay} />
       </div>
 
     </div>

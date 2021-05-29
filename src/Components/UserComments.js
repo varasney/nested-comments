@@ -1,27 +1,19 @@
-
+import CommentBox from '../Components/CommentBox';
 function UserComments(props) {
     const {
         userCommentesList = [],
         onlikeClick, onUnlikeClick,
-        onDeleteComment
+        onDeleteComment,
+        onReplayText,
+        addReplay
     } = props
     return (
         <div style={styles.boxContainer}>
-
             {userCommentesList && userCommentesList.map((item, index) => {
-                console.log('suhas item', item);
                 return (
                     <>
-                        <div style={styles.box}>
-                            <p style={styles.commentTextStyle}>{item.comment}</p>
-                            <div style={{ display: 'flex', flexDirection: 'row-reverse', justifyContent: 'flex-start', margin: 10 }}>
-                                <p style={styles.fontSize} onClick={() => onDeleteComment(index, item)}>Delate</p>
-                                <p style={styles.fontSize}>Replay</p>
-                                {!item.isLike && <p style={styles.fontSize} onClick={() => onlikeClick(item, index)}>Like</p>}
-                                {item.isLike && <p style={{ ...styles.fontSize, color: 'red' }} onClick={() => onUnlikeClick(item, index)}>Like</p>}
-                            </div>
-                        </div>
-
+                        <MainCommentBox {...props} item={item} index={index} />
+                        {item.replay && <MainCommentBox {...props} item={item.replay} index={index} />}
 
                     </>
 
@@ -32,6 +24,39 @@ function UserComments(props) {
 }
 
 export default UserComments;
+
+const MainCommentBox = (props) => {
+    const {
+        userCommentesList = [],
+        onlikeClick, onUnlikeClick,
+        onDeleteComment,
+        onReplayText,
+        addReplay,
+        item,
+        index
+    } = props
+
+    return (
+        <div style={styles.box}>
+            <p style={styles.commentTextStyle}>{item.comment}</p>
+            <div style={{ display: 'flex', flexDirection: 'row-reverse', justifyContent: 'flex-start', margin: 10 }}>
+                <p style={styles.fontSize} onClick={() => onDeleteComment(index, item)}>Delate</p>
+                <p style={styles.fontSize}>Replay</p>
+                {!item.isLike && <p style={styles.fontSize} onClick={() => onlikeClick(item, index)}>Like</p>}
+                {item.isLike && <p style={{ ...styles.fontSize, color: 'red' }} onClick={() => onUnlikeClick(item, index)}>Like</p>}
+            </div>
+
+            {/* {<div>
+                <CommentBox
+                    rows="3"
+                    cols="22"
+                    onChangeComment={onReplayText}
+                    addComment={() => addReplay(index, item)} />
+            </div>} */}
+
+        </div>
+    )
+}
 
 
 const styles = {
