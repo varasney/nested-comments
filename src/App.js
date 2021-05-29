@@ -8,6 +8,7 @@ function App() {
   const {
     commenting,
     allComments,
+    editingComment,
     onChangeComment,
     addComment,
     onlikeClick,
@@ -16,7 +17,10 @@ function App() {
     onReplayText,
     addReplay,
     onReplayVisible,
-    onReplayDisable
+    onReplayDisable,
+    onEditingComment,
+    showEdit,
+    onUpdateComment
   } = USEController()
   return (
     <div className="App">
@@ -37,6 +41,10 @@ function App() {
           addReplay={addReplay}
           onReplayVisible={onReplayVisible}
           onReplayDisable={onReplayDisable}
+          showEdit={showEdit}
+          onEditingComment={onEditingComment}
+          editingComment={editingComment}
+          onUpdateComment={onUpdateComment}
         />
       </div>
 

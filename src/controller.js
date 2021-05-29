@@ -4,6 +4,7 @@ function USEController() {
     const [commenting, setCommenting] = useState('')
     const [allComments, setComments] = useState([])
     const [replyComment, seReplayComment] = useState('')
+    const [editingComment, setEditingComment] = useState('')
 
 
     const onChangeComment = (e) => {
@@ -12,7 +13,6 @@ function USEController() {
     }
 
     const addComment = () => {
-        console.log('suhas nano commenting', commenting);
         if (!commenting) {
             alert('Please add your comment');
             return;
@@ -21,7 +21,8 @@ function USEController() {
         cpyallComments.push({
             comment: commenting,
             isLike: false,
-            showReplay: false
+            showReplay: false,
+            isEdit: false,
         })
         setComments(cpyallComments);
         setCommenting('')
@@ -75,9 +76,36 @@ function USEController() {
         onReplayDisable(index, item)
     }
 
+    const onEditingComment = (e) => {
+        setEditingComment(e.target.value);
+    }
+
+    const showEdit = (index, item) => {
+        item.isEdit = true;
+        let cpy = [...allComments]
+        cpy[index] = item
+        setComments(cpy)
+        setEditingComment(item.comment);
+
+    }
+
+    const onUpdateComment = (index, item) => {
+        item.comment = editingComment;
+        item.isEdit = false;
+        let cpy = [...allComments]
+        cpy[index] = item
+        setComments(cpy);
+
+    }
+    const hideEdit = (index, item) => {
+
+    }
+
+    console.log('suhas nani', editingComment);
     return {
         commenting,
         allComments,
+        editingComment,
         onChangeComment,
         addComment,
         onlikeClick,
@@ -86,7 +114,10 @@ function USEController() {
         onReplayText,
         addReplay,
         onReplayVisible,
-        onReplayDisable
+        onReplayDisable,
+        showEdit,
+        onEditingComment,
+        onUpdateComment
     };
 }
 

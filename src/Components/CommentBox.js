@@ -1,13 +1,13 @@
 
 function CommentBox(props) {
-    const { value, onChangeComment, addComment } = props
+    const { value, onChangeComment, addComment, buttonLabel, containerStyle } = props
     return (
         <div style={styles.container}>
             <div style={styles.textAreaContainer}>
-                <textarea {...props} rows="5" cols="40" onChange={onChangeComment} value={value} />
+                <textarea rows="5" cols="40" {...props} onChange={onChangeComment} value={value} />
             </div>
-            <div style={styles.buttonContainer} onClick={addComment}>
-                <p style={styles.textLabel}>Comment</p>
+            <div style={{ ...styles.buttonContainer, ...containerStyle }} onClick={addComment}>
+                <p style={styles.textLabel}>{buttonLabel ? buttonLabel : 'Comment'}</p>
             </div>
         </div>
     );

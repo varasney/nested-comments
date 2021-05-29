@@ -16,7 +16,7 @@ function UserComments(props) {
                     <>
                         <MainCommentBox {...props} item={item} index={index} />
                         {item.replay &&
-                            <div style={{marginLeft:20}}>
+                            <div style={{ marginLeft: 20 }}>
                                 <MainCommentBox {...props} item={item.replay} index={index} />
                             </div>
                         }
@@ -40,29 +40,56 @@ const MainCommentBox = (props) => {
         addReplay,
         onReplayVisible,
         onReplayDisable,
+        editingComment,
+        showEdit,
+        onEditingComment,
+        onUpdateComment,
         item,
         index
     } = props
+    console.log('suhas nano item', item);
 
     return (
-        <div style={styles.box}>
-            <p style={styles.commentTextStyle}>{item.comment}</p>
-            <div style={{ display: 'flex', flexDirection: 'row-reverse', justifyContent: 'flex-start', margin: 10 }}>
-                <p style={styles.fontSize} onClick={() => onDeleteComment(index, item)}>Delate</p>
-                <p style={styles.fontSize} onClick={() => onReplayVisible(index, item)}>Replay</p>
-                {!item.isLike && <p style={styles.fontSize} onClick={() => onlikeClick(item, index)}>Like</p>}
-                {item.isLike && <p style={{ ...styles.fontSize, color: 'red' }} onClick={() => onUnlikeClick(item, index)}>Like</p>}
-            </div>
+        <>
+            {!item.isEdit &&
+                <div style={styles.box}>
+                    <p style={styles.commentTextStyle}>{item.comment}</p>
+                    <div style={{ display: 'flex', flexDirection: 'row-reverse', justifyContent: 'flex-start', margin: 10 }}>
+                        <p style={styles.fontSize} onClick={() => onDeleteComment(index, item)}>Delate</p>
+                        <p style={styles.fontSize} onClick={() => onReplayVisible(index, item)}>Replay</p>
+                        {!item.isLike && <p style={styles.fontSize} onClick={() => onlikeClick(item, index)}>Like</p>}
+                        {item.isLike && <p style={{ ...styles.fontSize, color: 'red' }} onClick={() => onUnlikeClick(item, index)}>Like</p>}
+                        <p style={styles.fontSize} onClick={() => showEdit(index, item)}>Edit</p>
+                    </div>
 
-            {item.showReplay && <div>
-                <CommentBox
-                    rows="3"
-                    cols="22"
-                    onChangeComment={onReplayText}
-                    addComment={() => addReplay(index, item)} />
-            </div>}
+                    {item.showReplay && <div>
+                        <CommentBox
+                            containerStyle={{ marginBottom: 40, zIndex:999 }}
+                            rows="3"
+                            cols="22"
+                            onChangeComment={onReplayText}
+                            addComment={() => addReplay(index, item)} />
+                    </div>}
 
-        </div>
+
+
+
+                </div>
+            }
+
+            {
+                item.isEdit && <div style={{ marginBottom: 20 }}>
+                    <CommentBox
+                        containerStyle={{ marginBottom: 40 }}
+                        buttonLabel={'Update'}
+                        value={editingComment}
+                        rows="4"
+                        cols="22"
+                        onChangeComment={onEditingComment}
+                        addComment={() => onUpdateComment(index, item)} />
+                </div>
+            }
+        </>
     )
 }
 
