@@ -64,6 +64,7 @@ const MainCommentBox = (props) => {
 
                     {item.showReplay && <div>
                         <CommentBox
+                            buttonLabel={'Replay'}
                             containerStyle={{ marginBottom: 40, zIndex:999 }}
                             rows="3"
                             cols="22"
