@@ -20,7 +20,8 @@ function USEController() {
         let cpyallComments = [...allComments]
         cpyallComments.push({
             comment: commenting,
-            isLike: false
+            isLike: false,
+            showReplay: false
         })
         setComments(cpyallComments);
         setCommenting('')
@@ -35,6 +36,18 @@ function USEController() {
     }
     const onUnlikeClick = (item, index) => {
         item.isLike = false;
+        let cpy = [...allComments]
+        cpy[index] = item
+        setComments(cpy)
+    }
+    const onReplayVisible = (index, item) => {
+        item.showReplay = true;
+        let cpy = [...allComments]
+        cpy[index] = item
+        setComments(cpy)
+    }
+    const onReplayDisable = (index, item) => {
+        item.showReplay = false;
         let cpy = [...allComments]
         cpy[index] = item
         setComments(cpy)
@@ -59,6 +72,7 @@ function USEController() {
         let cpy = [...allComments]
         cpy[index] = item
         setComments(cpy)
+        onReplayDisable(index, item)
     }
 
     return {
@@ -70,7 +84,9 @@ function USEController() {
         onUnlikeClick,
         onDeleteComment,
         onReplayText,
-        addReplay
+        addReplay,
+        onReplayVisible,
+        onReplayDisable
     };
 }
 

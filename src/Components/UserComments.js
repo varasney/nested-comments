@@ -5,7 +5,9 @@ function UserComments(props) {
         onlikeClick, onUnlikeClick,
         onDeleteComment,
         onReplayText,
-        addReplay
+        addReplay,
+        onReplayVisible,
+        onReplayDisable
     } = props
     return (
         <div style={styles.boxContainer}>
@@ -13,7 +15,11 @@ function UserComments(props) {
                 return (
                     <>
                         <MainCommentBox {...props} item={item} index={index} />
-                        {item.replay && <MainCommentBox {...props} item={item.replay} index={index} />}
+                        {item.replay &&
+                            <div style={{marginLeft:20}}>
+                                <MainCommentBox {...props} item={item.replay} index={index} />
+                            </div>
+                        }
 
                     </>
 
@@ -32,6 +38,8 @@ const MainCommentBox = (props) => {
         onDeleteComment,
         onReplayText,
         addReplay,
+        onReplayVisible,
+        onReplayDisable,
         item,
         index
     } = props
@@ -41,18 +49,18 @@ const MainCommentBox = (props) => {
             <p style={styles.commentTextStyle}>{item.comment}</p>
             <div style={{ display: 'flex', flexDirection: 'row-reverse', justifyContent: 'flex-start', margin: 10 }}>
                 <p style={styles.fontSize} onClick={() => onDeleteComment(index, item)}>Delate</p>
-                <p style={styles.fontSize}>Replay</p>
+                <p style={styles.fontSize} onClick={() => onReplayVisible(index, item)}>Replay</p>
                 {!item.isLike && <p style={styles.fontSize} onClick={() => onlikeClick(item, index)}>Like</p>}
                 {item.isLike && <p style={{ ...styles.fontSize, color: 'red' }} onClick={() => onUnlikeClick(item, index)}>Like</p>}
             </div>
 
-            {/* {<div>
+            {item.showReplay && <div>
                 <CommentBox
                     rows="3"
                     cols="22"
                     onChangeComment={onReplayText}
                     addComment={() => addReplay(index, item)} />
-            </div>} */}
+            </div>}
 
         </div>
     )
